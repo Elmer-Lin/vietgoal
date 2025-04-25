@@ -5,34 +5,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VietGoal - Match Scores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #da251d;
+      --accent-color: #ffcc00;
+      --background-color: #f4f4f4;
+      --text-color: #222;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #222;
+      font-family: 'Noto Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
       margin: 0;
     }
     header {
-      background-color: #d91e18;
+      background-color: var(--primary-color);
       color: white;
-      padding: 20px;
+      padding: 30px 20px;
       text-align: center;
     }
     nav {
-      background-color: #222;
-      color: white;
-      padding: 10px;
+      background-color: var(--accent-color);
       text-align: center;
+      padding: 12px;
     }
     nav a {
-      color: white;
+      color: var(--primary-color);
+      font-weight: bold;
       margin: 0 15px;
       text-decoration: none;
+      font-size: 18px;
+    }
+    nav a:hover {
+      color: #222;
     }
     main {
       padding: 20px;
       max-width: 900px;
       margin: auto;
+      animation: fadeIn 1s ease-in;
     }
     .match {
       background: white;
@@ -41,8 +53,9 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .match h4 {
-      margin: 0 0 10px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
