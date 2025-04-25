@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #da251d; /* Vietnam Red */
-      --accent-color: #ffcc00;  /* Vietnam Yellow */
+      --primary-color: #da251d;
+      --accent-color: #ffcc00;
       --background-color: #f4f4f4;
       --text-color: #222;
     }
@@ -37,16 +37,43 @@
       margin: 0 15px;
       text-decoration: none;
       font-size: 18px;
-      transition: color 0.3s;
     }
     nav a:hover {
       color: #222;
+    }
+    .notice {
+      background-color: #ffe066;
+      color: #333;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .language-toggle {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .language-toggle button {
+      margin: 0 5px;
+      padding: 6px 12px;
+      border: none;
+      background: var(--accent-color);
+      color: var(--primary-color);
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
     }
     main {
       padding: 40px 20px;
       max-width: 900px;
       margin: auto;
       animation: fadeIn 1s ease-in;
+    }
+    #countdown {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+      color: #b30000;
     }
     footer {
       background-color: var(--primary-color);
@@ -64,30 +91,118 @@
 <body>
   <header>
     <h1>🇻🇳 VietGoal</h1>
-    <p>Your Ultimate Vietnamese Football Hub</p>
+    <p id="tagline">Your Ultimate Vietnamese Football Hub</p>
   </header>
   <nav>
     <a href="index.html">🏠 Home</a>
     <a href="players.html">👤 Players</a>
     <a href="scores.html">📊 Scores</a>
   </nav>
+  <div class="notice">📣 Next match soon! Stay tuned for updates!</div>
+  <div class="language-toggle">
+    <button onclick="setLanguage('en')">English</button>
+    <button onclick="setLanguage('vi')">Tiếng Việt</button>
+    <button onclick="setLanguage('zh')">中文</button>
+  </div>
   <main>
-    <h2>Welcome to VietGoal!</h2>
-    <p>We bring you the latest updates, stories, and highlights from the world of Vietnamese football.</p>
+    <h2 id="welcome">Welcome to VietGoal!</h2>
+    <div id="countdown">Loading countdown...</div>
+    <p id="intro">We bring you the latest updates, stories, and highlights from the world of Vietnamese football.</p>
 
-    <h3>Featured Sections</h3>
-    <ul>
+    <h3 id="sections">Featured Sections</h3>
+    <ul id="features">
       <li>⚽ V.League Match Results</li>
       <li>🇻🇳 Vietnam National Team News</li>
       <li>🎥 Highlight Videos</li>
       <li>🧠 Player Profiles</li>
       <li>🗓 Upcoming Match Schedules</li>
     </ul>
-
-    <p>Stay tuned and join us in celebrating the passion of Vietnam's beautiful game.</p>
+    <p id="closing">Stay tuned and join us in celebrating the passion of Vietnam's beautiful game.</p>
   </main>
   <footer>
     &copy; 2025 VietGoal. Made with ❤️ for Vietnamese football fans.
   </footer>
+
+  <script>
+    // Countdown timer to a future date
+    const matchDate = new Date("2025-05-01T18:00:00");
+    const countdownElement = document.getElementById("countdown");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = matchDate - now;
+      if (diff <= 0) {
+        countdownElement.textContent = "🎉 The match has started!";
+        return;
+      }
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      countdownElement.textContent = `⏱ Next match starts in ${hours}h ${minutes}m ${seconds}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Language toggle
+    const text = {{
+      en: {{
+        tagline: "Your Ultimate Vietnamese Football Hub",
+        welcome: "Welcome to VietGoal!",
+        intro: "We bring you the latest updates, stories, and highlights from the world of Vietnamese football.",
+        sections: "Featured Sections",
+        features: [
+          "⚽ V.League Match Results",
+          "🇻🇳 Vietnam National Team News",
+          "🎥 Highlight Videos",
+          "🧠 Player Profiles",
+          "🗓 Upcoming Match Schedules"
+        ],
+        closing: "Stay tuned and join us in celebrating the passion of Vietnam's beautiful game."
+      }},
+      vi: {{
+        tagline: "Trung tâm bóng đá Việt Nam",
+        welcome: "Chào mừng đến với VietGoal!",
+        intro: "Chúng tôi mang đến cho bạn những cập nhật, câu chuyện và điểm nhấn mới nhất về bóng đá Việt Nam.",
+        sections: "Các mục nổi bật",
+        features: [
+          "⚽ Kết quả trận đấu V.League",
+          "🇻🇳 Tin tức Đội tuyển Quốc gia Việt Nam",
+          "🎥 Video nổi bật",
+          "🧠 Hồ sơ cầu thủ",
+          "🗓 Lịch thi đấu sắp tới"
+        ],
+        closing: "Hãy đồng hành và cùng chúng tôi lan tỏa đam mê bóng đá Việt Nam!"
+      }},
+      zh: {{
+        tagline: "你的越南足球資訊中心",
+        welcome: "歡迎來到 VietGoal！",
+        intro: "我們為您帶來越南足球的最新資訊、故事與精華。",
+        sections: "精彩專區",
+        features: [
+          "⚽ V.League 比賽結果",
+          "🇻🇳 越南國家隊新聞",
+          "🎥 精選影片",
+          "🧠 球員資料",
+          "🗓 即將比賽時間表"
+        ],
+        closing: "一起見證越南足球的熱情與榮耀！"
+      }}
+    }};
+
+    function setLanguage(lang) {{
+      document.getElementById("tagline").textContent = text[lang].tagline;
+      document.getElementById("welcome").textContent = text[lang].welcome;
+      document.getElementById("intro").textContent = text[lang].intro;
+      document.getElementById("sections").textContent = text[lang].sections;
+      document.getElementById("closing").textContent = text[lang].closing;
+      const featureList = document.getElementById("features");
+      featureList.innerHTML = "";
+      text[lang].features.forEach(item => {{
+        const li = document.createElement("li");
+        li.textContent = item;
+        featureList.appendChild(li);
+      }});
+    }}
+  </script>
 </body>
 </html>
